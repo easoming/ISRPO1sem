@@ -1,26 +1,33 @@
 name: CI
 on:
-   # События, которые запускают jobs
-    push:
-      branches: [ "main" ]
-# jobs запускаются параллельно, если не указана последовательность
+  push:
+    branches: [ "main" ]
+
 jobs:
-    # Название job вы можете назвать как угодно
-    testing_ubuntu:
-      # Операционная система в виртуальной машине, в которой запускаются процессы
-      runs-on: ubuntu-latest
-        # Шаги
-      steps:
-          # - uses: actions/checkout@v3
-          - name: testing_lnx
-            run: |
-               cd ..
-               python -m unittest test_geometry.py
-                
-    testing_windows:
-      runs-on: windows-latest
-      steps:
-        - name: testing_win
-          run: |
-             cd ..
-             python -m unittest test_geometry.py
+  testing_ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+   
+      - name: set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      
+      - name: Run tests on Linux
+        run: python -m unittest test_geometry.py
+
+  testing_windows:
+    runs-on: windows-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      
+      - name: Run tests on Windows
+        run: python -m unittest test_geometry.py
