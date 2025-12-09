@@ -13,10 +13,14 @@ jobs:
       steps:
           # - uses: actions/checkout@v3
           - name: testing_lnx
-            run: python -m unittest test_geometry.py
+            run: |
+               cd ..
+               python -m unittest test_geometry.py
                 
     testing_windows:
       runs-on: windows-latest
       steps:
         - name: testing_win
-          run: python -m unittest test_geometry.py
+          run: |
+             cd ..
+             python -m unittest test_geometry.py
